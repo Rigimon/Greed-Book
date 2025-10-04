@@ -1,0 +1,51 @@
+<!-- Importa o Layout base do html -->
+{% extends 'layout.html' %}
+
+<!-- Define o titulo dinamico -->
+{% block title %} Cadastro de Livros {% endblock %}
+
+<!-- Define o conteudo dinamico -->
+{% block content %}
+
+<div class="col-sm-11 col-lg-6 card p-5 my-5">
+
+    <div class="card-title mb-3 text-center"><b>Aluguel de Livros</b></div>
+
+    <form method="post">
+        <div class="form-group mb-3">
+            <label for="leitor" class="form-label">Leitor</label>
+            <select class="form-control" id="leitor" name="leitor">
+                <!-- Opções de leitores cadastrados -->
+                 {% for leitor in leitores %}
+                    <option value="{{ leitor.id }}">{{ leitor.nome }}</option>
+                 {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="livro" class="form-label">Livro</label>
+            <select class="form-control" id="livro" name="livro">
+                <!-- Opções de livros disponíveis -->
+                 {% for livro in livros %}
+                    <option value="{{ livro.id }}">{{ livro.titulo }}</option>
+                 {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="data_emprestimo" class="form-label">Data de Empréstimo</label>
+            <input type="date" class="form-control" id="data_emprestimo" name="data_emprestimo">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="data_devolucao" class="form-label">Data de Devolução Prevista</label>
+            <input type="date" class="form-control" id="data_devolucao" name="data_devolucao">
+        </div>
+
+        <button type="submit" class="btn btn-success">Confirmar Empréstimo</button>
+    </form>
+
+
+</div>
+
+{% endblock %}

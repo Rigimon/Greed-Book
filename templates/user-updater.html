@@ -1,0 +1,71 @@
+<!-- Importa o Layout base do html -->
+{% extends 'layout.html' %}
+
+<!-- Define o titulo dinamico -->
+{% block title %} Lista de Usuarios {% endblock %}
+
+<!-- Define o conteudo dinamico -->
+{% block content %}
+
+<!-- Conteudo da Página -->
+<div class="row d-flex justify-content-center">
+    <div class="col-sm-11 col-lg-6 card p-5 my-5">
+
+        <div class="card-title mb-3 text-center"><b>Atualização do Usuário - {{ usuario.nome }}</b></div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('user_management.edit_user',cpf=usuario.cpf) }}">
+            <div class="form-group mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ usuario.nome }}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" value="{{ usuario.cpf }}" readonly>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ usuario.nascimento }}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" class="form-control" id="endereco" name="endereco" value="{{ usuario.endereco }}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="telefone" name="telefone" value="{{ usuario.telefone }}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ usuario.email }}" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="tipo_usuario" class="form-label">Tipo de Usuário</label>
+                <select class="form-control" id="tipo_usuario" name="tipo_usuario" value="{{ usuario.tipo }}" required>
+                    <option value="1" {% if usuario.tipo == '1' %}selected{% endif %}>Leitor</option>
+                    <option value="0" {% if usuario.tipo == '0' %}selected{% endif %}>Bibliotecário</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Atualizar</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+<!-- Importa o Layout base do html -->
+{% extends 'layout.html' %}
+
+<!-- Define o titulo dinamico -->
+{% block title %} Lista de Usuarios {% endblock %}
+
+<!-- Define o conteudo dinamico -->
+{% block content %}
+
+<div class="col-sm-11 col-lg-6 card p-5 my-5">
+
+    <div class="card-title mb-5 text-center"><b>Gerenciar Usuarios</b></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        
+        <input type="text" class="form-control w-50" id="buscaUsuario" placeholder="🔎 Buscar usuário...">
+
+        <!-- botao para um novo cadastro, alinhado a direita -->
+        <a class="btn btn-success" href="{{ url_for('user_management.user_register') }}">Cadastrar Novo Usuario</a>
+    </div>
+
+        <!-- Exibe as mensagens de feedback do backend -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Tipo de Usuário</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <!-- Loop para exibir cada usuario cadastrado no banco de dados -->
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.nome }}</td>
+                        <td>{{ usuario.cpf }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{% if usuario.tipo == 0 %}Bibliotecário{% else %}Leitor{% endif %}</td>
+                        <td>
+
+                            <!-- Botões de ação -->
+                            <a href="{{ url_for('user_management.edit_user', cpf=usuario.cpf) }}"
+                                class="btn btn-primary btn-sm">Editar</a>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#confirmDelete-{{ usuario.cpf }}">Excluir</button>
+                        </td>
+                    </tr>
+
+                    <!-- Modal de exclusão lógica -->
+                    <div class="modal fade" id="confirmDelete-{{ usuario.cpf }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Fechar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Tem certeza que deseja excluir:
+                                    <br>
+                                    <strong>{{ usuario.nome }}</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                                    <form method="post" action="{{ url_for('user_management.delete_user', cpf=usuario.cpf) }}">
+                                        <button type="submit" class="btn btn-danger">Sim</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mensagem caso não haja nenhum usuario -->
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhum usuario cadastrado ainda...</td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
