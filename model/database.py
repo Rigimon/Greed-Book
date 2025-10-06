@@ -13,7 +13,7 @@ import os
 
 # Realiza a configuração do bd.
 database_path = os.environ.get("DATA_DIR", "data")
-engine = create_engine(f"sqlite:///{database_path}/livraria.db")
+engine = create_engine(database_path)
 
 # Faz o SQlite interpretar cada classe do python como uma tabela do bd
 tabela = declarative_base()
