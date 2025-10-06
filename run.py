@@ -27,13 +27,9 @@
 
 from controller import create_application
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 # Cria uma instancia da web
 app = create_application()
-
-engine = create_engine("sqlite:///data/livraria.db")
-Session = sessionmaker(bind=engine)
 
 if __name__ == "__main__":
     app.run(debug=True)
