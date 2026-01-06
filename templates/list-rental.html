@@ -48,8 +48,8 @@
                     <tr>
                         <td>{{ emprestimo.leitor }}</td>
                         <td>{{ emprestimo.livro }}</td>
-                        <td>{{ emprestimo.data_emprestimo }}</td>
-                        <td>{{ emprestimo.data_devolucao_prev }}</td>
+                        <td>{{ emprestimo.data_emprestimo.day }}/{{ emprestimo.data_emprestimo.month }}/{{ emprestimo.data_emprestimo.year }}</td>
+                        <td>{{ emprestimo.data_devolucao_prev.day }}/{{ emprestimo.data_devolucao_prev.month }}/{{ emprestimo.data_devolucao_prev.year }}</td>
                         <td>{{ emprestimo.status }}</td>
                         <td>
 
