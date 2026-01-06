@@ -28,7 +28,7 @@ def login():
             return redirect(url_for("user_autentication.dashboard"))
         else:
     
-            flash("Voce errou seu merdaaaaaaaaa!!!!!!", "danger")  # Manda a mensagem pro arrombado q n sabe digitar
+            flash("Credenciais Inválidas", "danger")  # Manda a mensagem pro arrombado q n sabe digitar
             return redirect(url_for("user_autentication.login"))
     return render_template("index.html")
 
@@ -42,5 +42,5 @@ def logout():
 def dashboard():
     if "user_id" in session:
         return render_template("dashboard.html")
-    flash("Para acessar faça login, seu merda", "warning")  # Manda a mensagem pro arrombado n hackear o site
+    flash("Para acessar faça login", "warning")  # Manda a mensagem pro arrombado n hackear o site
     return redirect(url_for("user_autentication.login"))
