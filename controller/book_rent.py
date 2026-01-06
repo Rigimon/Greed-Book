@@ -27,7 +27,7 @@ def list_rental():
             table.append(data)
         print(table)
         return render_template("list-rental.html",emprestimos=table)
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/book_rental", methods=["POST","GET"])
@@ -64,7 +64,7 @@ def book_rental():
         livros = cursor.query(Livro).filter_by(ativo=1)
         leitores = cursor.query(Usuario).filter_by(ativo=1,tipo=1)
         return render_template("book-rental.html",livros=livros,leitores=leitores)
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/book_loan")
