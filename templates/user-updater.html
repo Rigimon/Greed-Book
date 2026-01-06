@@ -58,8 +58,8 @@
             <div class="form-group mb-3">
                 <label for="tipo_usuario" class="form-label">Tipo de Usuário</label>
                 <select class="form-control" id="tipo_usuario" name="tipo_usuario" value="{{ usuario.tipo }}" required>
-                    <option value="1" {% if usuario.tipo == 1 %}selected{% endif %}>Leitor</option>
-                    <option value="0" {% if usuario.tipo == 0 %}selected{% endif %}>Bibliotecário</option>
+                    <option value="1" {% if usuario.tipo == 1 %} selected {% endif %}>Leitor</option>
+                    <option value="0" {% if usuario.tipo == 0 %} selected {% endif %}>Bibliotecário</option>
                 </select>
             </div>
 
