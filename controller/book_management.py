@@ -52,7 +52,7 @@ def book_register():
             flash("Livro cadastrado com sucesso","success")
             return redirect(url_for("book_management.book_list"))
         return render_template("book-register.html")
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/book_list")
@@ -62,7 +62,7 @@ def book_list():
         livros = cursor.query(Livro).filter_by(ativo=1).order_by(Livro.titulo).all()
         cursor.close()
         return render_template("book-list.html",livros=livros)
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/edit_book/<string:isbn>", methods=["POST","GET"])
@@ -89,7 +89,7 @@ def edit_book(isbn):
         print(livro)
         cursor.close()
         return render_template("book-updater.html",livro=livro)
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/delete_book/<string:isbn>", methods=['POST','GET'])
@@ -106,5 +106,5 @@ def delete_book(isbn):
             flash("Livro não encontrado", "danger")
         cursor.close()
         return redirect(url_for("book_management.book_list"))
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
