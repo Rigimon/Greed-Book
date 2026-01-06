@@ -12,7 +12,7 @@ from sqlalchemy.orm import(
 import os
 
 # Realiza a configuração do bd.
-database_path = os.environ.get("MONGODB_URI", "data")
+database_path = os.environ.get("DATA_DIR", "data")
 engine = create_engine(database_path)
 
 # Faz o SQlite interpretar cada classe do python como uma tabela do bd
