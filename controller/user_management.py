@@ -53,7 +53,7 @@ def user_register():
             flash("Usuario cadastrado com sucesso","success")
             return redirect(url_for("user_management.user_list"))
         return render_template("user-register.html")
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/user_list", methods=["POST","GET"])
@@ -82,7 +82,7 @@ def edit_user(cpf):
         usuario = cursor.query(Usuario).filter_by(ativo=1,cpf=cpf).first()
         cursor.close()
         return render_template("user-updater.html",usuario=usuario)
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
 
 @blueprint.route("/delete_user/<string:cpf>")
@@ -99,5 +99,5 @@ def delete_user(cpf):
             flash("Usuario não encontrado", "danger")
         cursor.close()
         return redirect(url_for("user_management.user_list"))
-    flash("Para acessar faça login, seu merda", "warning")
+    flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))
