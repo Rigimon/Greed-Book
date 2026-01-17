@@ -12,8 +12,8 @@ from sqlalchemy.orm import(
 import os
 
 # Realiza a configuração do bd.
-DATA_URL = os.environ.get('DATA_URL', "None")
-if DATA_URL != "None":
+DATA_URL = os.environ.get('DATA_URL', None)
+if DATA_URL != None:
     database_path = DATA_URL
     engine = create_engine(database_path, connect_args={"sslmode":"require", "target_session_attrs": "read-write"})
 else:
