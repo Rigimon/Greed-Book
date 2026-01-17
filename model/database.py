@@ -15,9 +15,10 @@ import os
 DATA_URL = os.environ.get('DATA_URL',None)
 if DATA_URL != None:
     database_path = DATA_URL
+    engine = create_engine(database_path, connect_args={"sslmode":"require"})
 else:
     database_path = f"sqlite:///{os.environ.get('DATA_DIR')}/database.db"
-engine = create_engine(database_path)
+    engine = create_engine(database_path)
 
 # Faz o SQlite interpretar cada classe do python como uma tabela do bd
 tabela = declarative_base()
