@@ -17,7 +17,7 @@ Session = sessionmaker(bind=engine)
 def list_rental():
     if "user_id" in session:
         cursor = Session()
-        emprestimos = cursor.query(Emprestimo).filter_by(ativo=1).all()
+        emprestimos = cursor.query(Emprestimo).filter_by(ativo=True).all()
         cursor.close()
         table = []
         for emprestimo in emprestimos:
@@ -61,8 +61,8 @@ def book_rental():
             cursor.close()
             flash("Emprestimo cadastrado com sucesso", "success")
             return redirect(url_for("book_rent.list_rental"))
-        livros = cursor.query(Livro).filter_by(ativo=1)
-        leitores = cursor.query(Usuario).filter_by(ativo=1,tipo=1)
+        livros = cursor.query(Livro).filter_by(ativo=True)
+        leitores = cursor.query(Usuario).filter_by(ativo=True,tipo=1)
         return render_template("book-rental.html",livros=livros,leitores=leitores)
     flash("Para acessar faça login", "warning")
     return redirect(url_for("user_autentication.login"))

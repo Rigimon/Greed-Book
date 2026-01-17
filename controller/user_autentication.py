@@ -18,7 +18,7 @@ def login():
         cpf = request.form.get("cpf")
         senha = request.form.get("senha")
         cursor = Session()
-        usuario = cursor.query(Usuario.cpf, Usuario.senha, Usuario.nome, Usuario.id).filter_by(tipo=0,cpf=cpf,ativo=1).first()
+        usuario = cursor.query(Usuario.cpf, Usuario.senha, Usuario.nome, Usuario.id).filter_by(tipo=0,cpf=cpf,ativo=True).first()
         cursor.close()
         if usuario and cpf == usuario[0] and check_password_hash(usuario[1],senha):
 

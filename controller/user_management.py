@@ -33,8 +33,8 @@ def user_register():
             existe = cursor.query(Usuario).filter_by(cpf=cpf).first()
             if existe:
 
-                if existe.ativo == 0:
-                    existe.ativo = 1
+                if existe.ativo == False:
+                    existe.ativo = True
                     cursor.commit()
                     cursor.close()
                     flash("Usuario cadastrado com sucesso","success")
@@ -58,7 +58,7 @@ def user_register():
 
 @blueprint.route("/user_list", methods=["POST","GET"])
 def user_list():
-    usuarios = cursor.query(Usuario).filter_by(ativo=1).all()
+    usuarios = cursor.query(Usuario).filter_by(ativo=True).all()
     return render_template("user-list.html",usuarios=usuarios)
 
 @blueprint.route("/edit_user/<string:cpf>", methods=["POST","GET"])
@@ -79,7 +79,7 @@ def edit_user(cpf):
             flash("Usuario atualizado com sucesso!","success")
             return redirect(url_for("user_management.user_list"))
         
-        usuario = cursor.query(Usuario).filter_by(ativo=1,cpf=cpf).first()
+        usuario = cursor.query(Usuario).filter_by(ativo=True,cpf=cpf).first()
         cursor.close()
         return render_template("user-updater.html",usuario=usuario)
     flash("Para acessar faça login", "warning")
@@ -89,7 +89,7 @@ def edit_user(cpf):
 def delete_user(cpf):
     if "user_id" in session:
         cursor = Session()
-        user = cursor.query(Usuario).filter_by(ativo=1,cpf=cpf).first()
+        user = cursor.query(Usuario).filter_by(ativo=True,cpf=cpf).first()
         print(user)
         if user:
             user.ativo = 0

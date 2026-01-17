@@ -31,8 +31,8 @@ def book_register():
             existe = cursor.query(Livro).filter_by(isbn=isbn).first()
             if existe:
 
-                if existe.ativo == 0:
-                    existe.ativo = 1
+                if existe.ativo == False:
+                    existe.ativo = True
                     cursor.commit()
                     cursor.close()
                     flash("Livro cadastrado com sucesso","success")
@@ -59,7 +59,7 @@ def book_register():
 def book_list():
     if "user_id" in session:
         cursor = Session()
-        livros = cursor.query(Livro).filter_by(ativo=1).order_by(Livro.titulo).all()
+        livros = cursor.query(Livro).filter_by(ativo=True).order_by(Livro.titulo).all()
         cursor.close()
         return render_template("book-list.html",livros=livros)
     flash("Para acessar faça login", "warning")
@@ -85,7 +85,7 @@ def edit_book(isbn):
             flash("Livro atualizado com sucesso!","success")
             return redirect(url_for("book_management.book_list"))
         
-        livro = cursor.query(Livro).filter_by(ativo=1,isbn=isbn).first()
+        livro = cursor.query(Livro).filter_by(ativo=True,isbn=isbn).first()
         print(livro)
         cursor.close()
         return render_template("book-updater.html",livro=livro)
@@ -96,7 +96,7 @@ def edit_book(isbn):
 def delete_book(isbn):
     if "user_id" in session:
         cursor = Session()
-        livro = cursor.query(Livro).filter_by(ativo=1,isbn=isbn).first()
+        livro = cursor.query(Livro).filter_by(ativo=True,isbn=isbn).first()
         print(livro)
         if livro:
             livro.ativo = 0
