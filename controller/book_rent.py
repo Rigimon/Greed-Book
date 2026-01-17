@@ -3,7 +3,6 @@ from flask import (
     redirect, url_for, session, flash           # leva o usuario para outra pagina, cria links que ativa funções de backend, cria sessoes de usuarios, envia mensagem do back end para o front end
 )
 from sqlalchemy.orm import sessionmaker             # Cria conexao com o database
-from werkzeug.security import check_password_hash   # Compara as senhas criptografadas
 
 from model.database import engine, Livro, Usuario, Emprestimo
 from datetime import date
