@@ -34,9 +34,12 @@ def create_application():
 
     ## Criação de Banco de dados e usuário master ##
     # Converte o Python em sql
-    tabela.metadata.create_all(engine)
+    try:
+        tabela.metadata.create_all(engine)
 
-    print("Banco de dados Talvez criado com sucesso!")
+        print("Banco de dados Talvez criado com sucesso!")
+    except Exception as e:
+        print("Erro:",e)
 
     # Configura a sessão de usuario
     Session = sessionmaker(bind=engine)
