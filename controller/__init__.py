@@ -43,16 +43,17 @@ def create_application():
 
     cursor = Session()
 
-    # Criando o ADM
-    user = Usuario(nome="ADM", cpf="000.000.000-00", nascimento=date(2000,1,1), endereco="Servidor", telefone="00000000000", email="adm@greedbook.com", senha=generate_password_hash("abc123!!", method="pbkdf2:sha256"), tipo=0)
-    
-    # add o adm ao banco
-    cursor.add(user)
-    cursor.commit()
-    cursor.close()
+    if not cursor.query(Usuario).filter_by(cpf="000.000.000-00").first():
+        # Criando o ADM
+        user = Usuario(nome="ADM", cpf="000.000.000-00", nascimento=date(2000,1,1), endereco="Servidor", telefone="00000000000", email="adm@greedbook.com", senha=generate_password_hash("abc123!!", method="pbkdf2:sha256"), tipo=0)
+        
+        # add o adm ao banco
+        cursor.add(user)
+        cursor.commit()
+        cursor.close()
 
-    ## feed back
-    print("ADM criado com sucesso")
+        ## feed back
+        print("ADM criado com sucesso")
 
     # Retorna a aplicação
     return app
