@@ -26,7 +26,6 @@
 # item.descrever()
 
 from controller import create_application
-from sqlalchemy import create_engine
 
 # Cria uma instancia da web
 app = create_application()
